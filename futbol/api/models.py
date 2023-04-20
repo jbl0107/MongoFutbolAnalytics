@@ -98,6 +98,9 @@ class Goal(models.Model):
     minute = models.IntegerField(null=False, blank=False, validators=[MaxValueValidator(120)])
     type = models.CharField(max_length=20 ,choices=GoalType.choices, default="-", null=False)
     assistant = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True, related_name='assists')
+    local = models.BooleanField()
+    year = models.IntegerField(null=False, blank=False, validators=[MinValueValidator(1888), MaxValueValidator(2023)])
+    competition = models.CharField(max_length=25 ,choices=TitleName.choices, default="-", null=False)
 
     def __str__(self):
         return f'{self.player} marcó un gol a el {self.team}'
