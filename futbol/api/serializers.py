@@ -17,3 +17,12 @@ class TeamSerializer(serializers.ModelSerializer):
         representation['league'] = instance.league
         return representation
 
+
+
+class TitleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Title
+        fields = '__all__'
+
+    
