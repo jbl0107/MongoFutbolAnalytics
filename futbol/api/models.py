@@ -80,6 +80,7 @@ class Player(models.Model):
     dorsal = models.IntegerField(null=False, blank=False)
     goodLeg = models.CharField(max_length=12 ,choices=GoodLeg.choices, default="-", null=False)
     team = models.ForeignKey(Team, on_delete=models.DO_NOTHING, null=False, blank=False, related_name='players')
+    gamesPlayed = models.IntegerField(null=False, blank=False, default=0)
     photo = models.ImageField(upload_to='players/', null=True, blank=True)
 
     class Meta:

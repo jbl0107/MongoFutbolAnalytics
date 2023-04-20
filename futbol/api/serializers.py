@@ -26,3 +26,9 @@ class TitleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     
+
+class PlayerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Player
+        fields = '__all__'

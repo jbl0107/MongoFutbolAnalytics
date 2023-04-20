@@ -194,3 +194,90 @@ def titles_team_type_number_detail_api_view(request, team_id, title_name):
 
 
 ########################################################################################################################
+
+#Player
+
+@api_view(['GET', 'POST'])
+def player_api_view(request):
+
+    if request.method == 'GET':
+
+        teams = Player.objects.all()
+        serializer = PlayerSerializer(teams, many=True)
+        return Response(serializer.data, status = status.HTTP_200_OK)
+    
+    elif request.method == 'POST':
+        data = request.data
+        serializer = PlayerSerializer(data = data) 
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def player_detail_api_view(request, id):
+
+    # queryset
+    player = Player.objects.filter(id=id).first()
+
+    # validacion
+    if player:
+
+        if request.method == 'GET':
+            serializer = PlayerSerializer(player)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        elif request.method == 'PUT':
+            data = request.data
+            serializer = PlayerSerializer(player, data = data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        elif request.method == 'DELETE':
+            player.delete()
+            return Response({'message':"Jugador eliminado correctamente!"}, status=status.HTTP_200_OK)
+
+    return Response({'message':"No se ha encontrado un jugador con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def players_team_detail_api_view(request, team_id):
+
+    team = Team.objects.filter(id=team_id).first()
+
+    if team:
+
+        if request.method == 'GET':
+
+            players = Player.objects.filter(team=team)
+            serializer = PlayerSerializer(players, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+    return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+def players_number_team_detail_api_view(request, team_id):
+
+    team = Team.objects.filter(id=team_id).first()
+
+    if team:
+
+        if request.method == 'GET':
+
+            players = Player.objects.filter(team=team)
+            serializer = PlayerSerializer(players, many=True)
+            return Response(len(serializer.data), status=status.HTTP_200_OK)
+
+
+    return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+###########################################################################################################################
