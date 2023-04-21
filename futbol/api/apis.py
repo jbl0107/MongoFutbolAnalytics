@@ -72,6 +72,27 @@ def team_detail_api_view(request, id):
     return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+@api_view(['GET'])
+def team_what_win_detail_api_view(request, title_name, year):
+
+    title_name = title_name.replace('-', ' ')
+    title = Title.objects.filter(name=title_name, year=year).first()
+    print(title.team)
+
+    if title:
+
+        if request.method == 'GET':
+            
+           
+            team = Team.objects.filter(name=title.team).first()
+            serializer = TeamSerializer(team)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+    return Response({'message':"No se ha encontrado un título con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
 ###########################################################################################################################
 
 
