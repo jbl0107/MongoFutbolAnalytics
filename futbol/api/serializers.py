@@ -32,3 +32,11 @@ class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = '__all__'
+
+
+
+class GoalSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Goal
+        fields = '__all__'

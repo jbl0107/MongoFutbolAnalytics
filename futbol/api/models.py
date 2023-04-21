@@ -24,6 +24,8 @@ class GoalType(models.TextChoices):
     CHILEAN= "Chilena"
     LEFTLEG = "Pierna izquierda"
     RIGHLEG = "Pierna derecha"
+    OUTSIDE = "Fuera del áera"
+    INSIDE = "Dentro del área"
 
 
 class TitleName(models.TextChoices):
@@ -98,9 +100,13 @@ class Goal(models.Model):
     minute = models.IntegerField(null=False, blank=False, validators=[MaxValueValidator(120)])
     type = models.CharField(max_length=20 ,choices=GoalType.choices, default="-", null=False)
     assistant = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True, related_name='assists')
-    local = models.BooleanField()
+    local = models.BooleanField(null = False, blank=False)
     year = models.IntegerField(null=False, blank=False, validators=[MinValueValidator(1888), MaxValueValidator(2023)])
     competition = models.CharField(max_length=25 ,choices=TitleName.choices, default="-", null=False)
+
+
+    class Meta:
+        unique_together = ('player', 'team', 'year', 'competition', 'minute')
 
     def __str__(self):
         return f'{self.player} marcó un gol a el {self.team}'
