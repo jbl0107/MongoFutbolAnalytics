@@ -56,6 +56,14 @@ urlpatterns = [
     path('goals/received/<int:team_id>/year/<int:year>/number', goals_number_received_year_detail_api_view, name='goals_number_received_year_detail_api'),
     path('goals/received/<int:team_id>/year/<int:year>/competition/<str:competition>', goals_received_year_competition_detail_api_view, name='goals_received_year_competition_detail_api'),
     path('goals/received/<int:team_id>/year/<int:year>/competition/<str:competition>/number', goals_number_received_year_competition_detail_api_view, name='goals_number_received_year_competition_detail_api'),
+    path('goals/team/<int:team_id>/scored', goals_scored_detail_api_view, name='goals_scored_detail_api_view'),
+    path('goals/team/<int:team_id>/scored/number', goals_number_scored_detail_api_view, name='goals_number_scored_detail_api_view'),
+    path('goals/team/<int:team_id>/scored/year/<int:year>', goals_scored_year_detail_api_view, name='goals_scored_year_detail_api_view'),
+    path('goals/team/<int:team_id>/scored/year/<int:year>/number', goals_number_scored_year_detail_api_view, name='goals_number_scored_year_detail_api_view'),
+    path('goals/team/<int:team_id>/scored/competition/<str:competition>', goals_scored_competition_detail_api_view, name='goals_scored_year_detail_api_view'),
+    path('goals/team/<int:team_id>/scored/competition/<str:competition>/number', goals_number_scored_competition_detail_api_view, name='goals_number_scored_year_detail_api_view'),
+    path('goals/team/<int:team_id>/scored/year/<int:year>/competition/<str:competition>', goals_scored_year_competition_detail_api_view, name='goals_scored_year_competition_detail_api_view'),
+    path('goals/team/<int:team_id>/scored/year/<int:year>/competition/<str:competition>/number', goals_number_scored_year_competition_detail_api_view, name='goals_number_scored_year_competition_detail_api_view'),
 
 
 ]

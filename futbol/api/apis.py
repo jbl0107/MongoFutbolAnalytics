@@ -927,3 +927,162 @@ def goals_number_received_year_competition_detail_api_view(request, team_id, yea
         
 
     return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+def goals_scored_detail_api_view(request, team_id):
+    
+    team = Team.objects.filter(id=team_id).first()
+
+    if team:
+    
+        if request.method == 'GET':
+            players = Player.objects.filter(team=team)
+        
+            goals = Goal.objects.filter(player__in=players)
+            serializer = GoalSerializer(goals, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+
+    return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+def goals_number_scored_detail_api_view(request, team_id):
+    
+    team = Team.objects.filter(id=team_id).first()
+
+    if team:
+    
+        if request.method == 'GET':
+            players = Player.objects.filter(team=team)
+        
+            goals = Goal.objects.filter(player__in=players)
+            serializer = GoalSerializer(goals, many=True)
+            return Response(len(serializer.data), status=status.HTTP_200_OK)
+        
+
+    return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+def goals_scored_year_detail_api_view(request, team_id, year):
+    
+    team = Team.objects.filter(id=team_id).first()
+
+    if team:
+    
+        if request.method == 'GET':
+            players = Player.objects.filter(team=team)
+        
+            goals = Goal.objects.filter(player__in=players, year=year)
+            serializer = GoalSerializer(goals, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+
+    return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+def goals_number_scored_year_detail_api_view(request, team_id, year):
+    
+    team = Team.objects.filter(id=team_id).first()
+
+    if team:
+    
+        if request.method == 'GET':
+            players = Player.objects.filter(team=team)
+        
+            goals = Goal.objects.filter(player__in=players, year=year)
+            serializer = GoalSerializer(goals, many=True)
+            return Response(len(serializer.data), status=status.HTTP_200_OK)
+        
+
+    return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+@api_view(['GET'])
+def goals_scored_competition_detail_api_view(request, team_id, competition):
+    
+    team = Team.objects.filter(id=team_id).first()
+
+    if team:
+    
+        if request.method == 'GET':
+            competition = competition.replace('-', ' ')
+            players = Player.objects.filter(team=team)
+        
+            goals = Goal.objects.filter(player__in=players, competition=competition)
+            serializer = GoalSerializer(goals, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+
+    return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+def goals_number_scored_competition_detail_api_view(request, team_id, competition):
+    
+    team = Team.objects.filter(id=team_id).first()
+
+    if team:
+    
+        if request.method == 'GET':
+            competition = competition.replace('-', ' ')
+            players = Player.objects.filter(team=team)
+        
+            goals = Goal.objects.filter(player__in=players, competition=competition)
+            serializer = GoalSerializer(goals, many=True)
+            return Response(len(serializer.data), status=status.HTTP_200_OK)
+        
+
+    return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+@api_view(['GET'])
+def goals_scored_year_competition_detail_api_view(request, team_id, competition, year):
+    
+    team = Team.objects.filter(id=team_id).first()
+
+    if team:
+    
+        if request.method == 'GET':
+            competition = competition.replace('-', ' ')
+            players = Player.objects.filter(team=team)
+        
+            goals = Goal.objects.filter(player__in=players, competition=competition, year=year)
+            serializer = GoalSerializer(goals, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+
+    return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+def goals_number_scored_year_competition_detail_api_view(request, team_id, competition, year):
+    
+    team = Team.objects.filter(id=team_id).first()
+
+    if team:
+    
+        if request.method == 'GET':
+            competition = competition.replace('-', ' ')
+            players = Player.objects.filter(team=team)
+        
+            goals = Goal.objects.filter(player__in=players, competition=competition, year=year)
+            serializer = GoalSerializer(goals, many=True)
+            return Response(len(serializer.data), status=status.HTTP_200_OK)
+        
+
+    return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
