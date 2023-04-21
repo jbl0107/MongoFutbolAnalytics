@@ -17,6 +17,8 @@ urlpatterns = [
     path('players/<int:id>', player_detail_api_view, name='player_detail_api'),
     path('players/team/<int:team_id>', players_team_detail_api_view, name='players_team_detail_api'),
     path('players/team/<int:team_id>/number', players_number_team_detail_api_view, name='players_number_team_detail_api'),
+    path('players/team/<int:team_id>/<str:good_leg>', players_goodLeg_detail_api_view, name='players_goodLeg_detail_api'),
+    
     
     path('goals/', goal_api_view, name='goal_api'),
     path('goals/<int:id>', goal_detail_api_view, name='goal_detail_api'),

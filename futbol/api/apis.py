@@ -283,6 +283,23 @@ def players_number_team_detail_api_view(request, team_id):
     return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET'])
+def players_goodLeg_detail_api_view(request, team_id, good_leg):
+
+    team = Team.objects.filter(id=team_id).first()
+
+    if team:
+
+        if request.method == 'GET':
+
+            players = Player.objects.filter(team=team, goodLeg=good_leg)
+            serializer = PlayerSerializer(players, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+    return Response({'message':"No se ha encontrado un equipo con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
+
+
 ###########################################################################################################################
 
 
@@ -753,7 +770,6 @@ def goals_number_assistant_year_competition_detail_api_view(request, player_id, 
     return Response({'message':"No se ha encontrado un jugador con estos datos"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-#####
 @api_view(['GET'])
 def goals_received_detail_api_view(request, team_id):
     
