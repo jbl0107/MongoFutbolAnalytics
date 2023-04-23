@@ -1,5 +1,6 @@
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
+from mongoengine import Document, StringField, ImageField, DateField, IntField, ReferenceField, BooleanField
+import mongoengine
 
 
 class League(models.TextChoices):
@@ -46,13 +47,13 @@ class TitleName(models.TextChoices):
 
 
 
-class Team(models.Model):
-    name = models.CharField(max_length=100, null=False, blank=False, unique=True)
-    shield = models.ImageField(upload_to='shields/', null=False, blank=False)
-    foundationDate = models.DateField(null=False, blank=False)
-    league = models.CharField(max_length=16 ,choices=League.choices, default="-", null=False)
-    actualPosition = models.IntegerField(null=False, validators=[MinValueValidator(1), MaxValueValidator(20)])
-    pastPosition = models.IntegerField(null=False, validators=[MinValueValidator(1), MaxValueValidator(20)])
+class Team(Document):
+    name = StringField(max_length=100, required=True, unique=True)
+    shield = ImageField(required=True)
+    foundationDate = DateField(required=True)
+    league = StringField(max_length=16 ,choices=League.choices, default="-", required=True)
+    actualPosition = IntField(required=True, min_value=1, max_value=20)
+    pastPosition = IntField(required=True, min_value=1, max_value=20)
 
 
     def __str__(self):
@@ -61,14 +62,17 @@ class Team(models.Model):
 
 
 
-class Title(models.Model):
-    name = models.CharField(max_length=25 ,choices=TitleName.choices, default="-", null=False)
-    team =  models.ForeignKey(Team, on_delete=models.DO_NOTHING, null=False, blank=False, related_name='titles')
-    year = models.IntegerField(null=False, blank=False, validators=[MinValueValidator(1888), MaxValueValidator(2023)])
+class Title(Document):
+    name = StringField(max_length=25 ,choices=TitleName.choices, default="-", required=True)
+    team = ReferenceField(Team, reverse_delete_rule=mongoengine.DO_NOTHING, required=True)
+    year = IntField(required=True, min_value=1888, max_value=2023)
 
-
-    class Meta:
-        unique_together = (('name', 'year'), ('name', 'team', 'year'))
+    meta = {
+        'indexes': [
+            {'fields': ('name', 'year'), 'unique': True},
+            {'fields': ('name', 'team', 'year'), 'unique': True}
+        ]
+    }
 
     def __str__(self):
         return self.name
@@ -76,37 +80,41 @@ class Title(models.Model):
 
 
 
+class Player(Document):
+    name = StringField(max_length=100, required=True, unique=True)
+    dorsal = IntField(required=True)
+    goodLeg = StringField(max_length=12 ,choices=GoodLeg.choices, default="-", required=True)
+    team = ReferenceField(Team, reverse_delete_rule=mongoengine.DO_NOTHING, required=True)
+    gamesPlayed = IntField(required=True, default=0)
+    photo = ImageField()
 
-class Player(models.Model):
-    name = models.CharField(max_length=100, null=False, blank=False, unique=True)
-    dorsal = models.IntegerField(null=False, blank=False)
-    goodLeg = models.CharField(max_length=12 ,choices=GoodLeg.choices, default="-", null=False)
-    team = models.ForeignKey(Team, on_delete=models.DO_NOTHING, null=False, blank=False, related_name='players')
-    gamesPlayed = models.IntegerField(null=False, blank=False, default=0)
-    photo = models.ImageField(upload_to='players/', null=True, blank=True)
-
-    class Meta:
-        unique_together = ('dorsal', 'team')
+    meta = {
+        'indexes': [
+            {'fields': ('dorsal', 'team'), 'unique': True}
+        ]
+    }
 
     def __str__(self):
-        return f'{self.name} juega en el equipo {self.team}'
+        return f'{self.name}'
     
 
 
 
-class Goal(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=False, blank=False, related_name='goals') 
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, null=False, blank=False, related_name='goals_conceded')
-    minute = models.IntegerField(null=False, blank=False, validators=[MaxValueValidator(120)])
-    type = models.CharField(max_length=20 ,choices=GoalType.choices, default="-", null=False)
-    assistant = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True, related_name='assists')
-    local = models.BooleanField(null = False, blank=False)
-    year = models.IntegerField(null=False, blank=False, validators=[MinValueValidator(1888), MaxValueValidator(2023)])
-    competition = models.CharField(max_length=25 ,choices=TitleName.choices, default="-", null=False)
+class Goal(Document):
+    player = ReferenceField(Player, reverse_delete_rule=mongoengine.CASCADE, required=True)
+    team = ReferenceField(Team, reverse_delete_rule=mongoengine.CASCADE, required=True)
+    minute = IntField(required=True, max_value=120)
+    type = StringField(max_length=20 ,choices=GoalType.choices, default="-", required=True)
+    assistant = ReferenceField(Player, reverse_delete_rule=mongoengine.CASCADE)
+    local = BooleanField(required=True)
+    year = IntField(required=True, min_value=1888, max_value=2023)
+    competition = StringField(max_length=25 ,choices=TitleName.choices, default="-", required=True)
 
-
-    class Meta:
-        unique_together = ('player', 'team', 'year', 'competition', 'minute')
+    meta = {
+        'indexes': [
+            {'fields': ('player', 'team', 'year', 'competition', 'minute'), 'unique': True}
+        ]
+    }
 
     def __str__(self):
         return f'{self.player} marcó un gol a el {self.team}'
