@@ -1,8 +1,8 @@
-from rest_framework import serializers
+from rest_framework_mongoengine import serializers
 from .models import *
 
 
-class TeamSerializer(serializers.ModelSerializer):
+class TeamSerializer(serializers.DocumentSerializer):
 
     class Meta:
         model = Team
@@ -19,7 +19,7 @@ class TeamSerializer(serializers.ModelSerializer):
 
 
 
-class TitleSerializer(serializers.ModelSerializer):
+class TitleSerializer(serializers.DocumentSerializer):
 
     class Meta:
         model = Title
@@ -27,7 +27,7 @@ class TitleSerializer(serializers.ModelSerializer):
 
     
 
-class PlayerSerializer(serializers.ModelSerializer):
+class PlayerSerializer(serializers.DocumentSerializer):
 
     class Meta:
         model = Player
@@ -35,7 +35,7 @@ class PlayerSerializer(serializers.ModelSerializer):
 
 
 
-class GoalSerializer(serializers.ModelSerializer):
+class GoalSerializer(serializers.DocumentSerializer):
 
     class Meta:
         model = Goal

@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api',
-    'corsheaders'
+    'corsheaders',
+    
 ]
 
 
@@ -82,16 +83,16 @@ WSGI_APPLICATION = 'futbol.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+
+SESSION_ENGINE = 'django_mongoengine.sessions'
+
+
+MONGODB_DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'CLIENT': {
-            "host":"mongodb+srv://cbd17:ZnVVRUDzgE8Khskr@cbdcluster.mzw9cbr.mongodb.net/?retryWrites=true&w=majority",
-            "name":"workDB",
-            "authMechanism": "SCRAM-SHA-1"
-    
-        },
-    }
+        'ENGINE': '',
+        'name': 'workDB',
+        'host': 'mongodb+srv://cbd17:ZnVVRUDzgE8Khskr@cbdcluster.mzw9cbr.mongodb.net/?retryWrites=true&w=majority',
+    },
 }
 
 
@@ -139,3 +140,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
