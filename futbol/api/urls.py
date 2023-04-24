@@ -1,11 +1,18 @@
 from django.urls import path
 from .apis import *
+from .views import index, teams, players, titles, goals
 
 
 urlpatterns = [
+    path('', index, name='index'),
+    path('teams_view/', teams, name='teams'),
+    path('players_view/', players, name='players'),
+    path('titles_view/', titles, name='titles'),
+    path('goals_view/', goals, name='goals'),
+    
     path('teams/', team_api_view, name='team_api'),
     path('teams/<str:id>', team_detail_api_view, name='team_detail_api'),
-    path('team/<str:title_name>/<int:year>/', team_what_win_detail_api_view, name='time_what_win_detail_api'),
+    path('teams/<str:title_name>/<int:year>/', team_what_win_detail_api_view, name='time_what_win_detail_api'),
 
 
     path('titles/', title_api_view, name='title_api'),

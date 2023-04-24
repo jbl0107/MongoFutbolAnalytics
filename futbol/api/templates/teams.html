@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Info Teams{% endblock %}
+
+{% block content %}
+
+    <style>
+        ul {
+            list-style-type: square;
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            color: #333;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+
+
+        pre {
+            background-color: lightgray;
+            padding: 10px;
+            border-radius: 5px;
+          }
+
+          p {
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .punto {
+            font-size: 20px;
+        }
+        
+  </style>
+
+
+    <div class="row">
+        
+            <h2>Información sobre este Documento</h2>
+            <p>En la documentación de swagger (situada en la url 127.0.0.1/8000/docs/) no pueden realizarse operaciones
+                POST. Si desea probar al completo la API, pongase en contacto con nosotros a través del correo que se muestra en la 
+                documentación comentada anteriormente (en la sección "Contact the developer") para recibir una invitación al workspace 
+                de Postman donde todas las peticiones pueden ser probadas. Para probar la peticion POST de este Documento en Postman,
+                deberá seleccionar la opción form-data de Body e ir introduciendo los datos. Asegurese de que el atributo "shield"
+                sea de tipo "File" para poder seleccionar un archivo de su ordenador.
+            </p>
+
+            <p>
+                Cuando en una URL se indica que debe especificar el nombre de una liga, tipo de gol o competición, y la que desea consultar 
+                tiene espacios, debe sustituir estos por "-". Un ejemplo: si desea buscar información sobre la competición 
+                "Premier League", en la URL deberá aparecer Premier-League.
+            </p>
+
+    </div>
+
+
+    <h2>Objeto JSON</h2>
+    <p>
+        Este es un ejemplo del JSON de un objeto del Documento Team. Todos los atributos son obligatorios. 
+        <br><span class="punto">•</span> El atributo "name" es único.
+        <br><span class="punto">•</span> Longitud máxima del campo "name": 100. 
+        <br><span class="punto">•</span> Rango de valores para "actualPosition" y "pastPosition": [1, 20] <br>
+        <span class="punto">•</span> El atributo "league" solo puede tomar estos valores: <br>
+        <ul>
+            <li>LaLiga</li>
+            <li>Premier League</li>
+            <li>Ligue 1</li>
+            <li>Serie A</li>
+            <li>Bundesliga</li>
+        </ul>
+    </p>
+    
+    <pre>
+        {
+            "id": "644571d4321749cd4ba038cf",
+            "name": "Real Madrid",
+            "shield": "644582065a89c11aceafc84c",
+            "foundationDate": "1902-03-06",
+            "league": "LaLiga",
+            "actualPosition": 2,
+            "pastPosition": 1
+        }
+    </pre>
+
+{% endblock %}

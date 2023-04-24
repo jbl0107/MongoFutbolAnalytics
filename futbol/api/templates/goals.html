@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}Info Goals{% endblock %}
+
+{% block content %}
+
+    <style>
+        ul {
+            list-style-type: square;
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            color: #333;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+
+
+        pre {
+            background-color: lightgray;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        p {
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .punto {
+            font-size: 20px;
+        }
+        
+    </style>
+
+    <div class="row">
+        
+            <h2>Información sobre este Documento</h2>
+            <p>En la documentación de swagger (situada en la url 127.0.0.1/8000/docs/) no pueden realizarse operaciones
+                POST. Si desea probar al completo la API, pongase en contacto con nosotros a través del correo que se muestra en la 
+                documentación comentada anteriormente (en la sección "Contact the developer") para recibir una invitación al workspace 
+                de Postman donde todas las peticiones pueden ser probadas. Para probar la peticion POST de este Documento en Postman,
+                deberá seleccionar la opción raw-JSON de Body.
+            </p>
+
+            <p>
+                Cuando en una URL se indica que debe especificar el nombre de una liga, tipo de gol o competición, y 
+                la que desea consultar tiene espacios, debe sustituir estos por "-". Un ejemplo: si desea buscar información 
+                sobre la competición "Premier League", en la URL deberá aparecer Premier-League.
+            </p>
+
+    </div>
+
+
+
+    <h2>Objeto JSON</h2>
+    <p>
+        Este es un ejemplo del JSON de un objeto del Documento Goal. Todos los atributos son obligatorios excepto "assistant". 
+        <br><span class="punto">•</span> El siguiente conjunto de atributos es único: (player, team, year, competition, minute).
+        <br><span class="punto">•</span> Valor máximo para "minute": 120.
+        <br><span class="punto">•</span> Rango de valores para "year": [1888, 2023] 
+        <br><span class="punto">•</span> El atributo "team" hace referencia a un objeto del Documento Team.
+        <br><span class="punto">•</span> Los atributos "player" y "assistant" hacen referencia a un objeto del Documento Player.
+        <br><span class="punto">•</span> El atributo "local" hace referencia a si el equipo que recibe el gol lo hace siendo local (valor a True) o visitante (valor a False). 
+        <br><span class="punto">•</span> El atributo "competition" solo puede tomar estos valores:
+        <ul>
+            <li>Champions League</li>
+            <li>Europa League</li>
+            <li>LaLiga</li>
+            <li>Copa del rey</li>
+            <li>Premier League</li>
+            <li>Community shield</li>
+            <li>Ligue 1</li>
+            <li>Coupe de la Ligue</li>
+            <li>Serie A</li>
+            <li>Coppa Italia</li>
+            <li>Bundesliga</li>
+            <li>DFB-Pokal</li>
+        </ul>
+
+        <br>
+
+        <span class="punto">•</span> El atributo "type" solo puede tomar estos valores:
+        <br> <br>
+        <ul>
+            <li>De cabeza</li>
+            <li>Penalti</li>
+            <li>Tiro libre</li>
+            <li>Corner</li>
+            <li>Chilena</li>
+            <li>Pierna izquierda</li>
+            <li>Pierna derecha</li>
+            <li>Dentro del área</li>
+            <li>Fuera del áera</li>
+        </ul>
+    </p>
+
+    <pre>
+        {
+            "id": "644571d4321749cd4ba038d2",
+            "minute": 30,
+            "type": "De cabeza",
+            "local": true,
+            "year": 2022,
+            "competition": "Copa del rey",
+            "player": "644571d4321749cd4ba038d1",
+            "team": "644571d4321749cd4ba038cf",
+            "assistant": "644571d4321749cd4ba038d1"
+        }
+    </pre>
+
+{% endblock %}
