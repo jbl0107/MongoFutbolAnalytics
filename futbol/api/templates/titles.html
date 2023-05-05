@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Info Titles{% endblock %}
+
+{% block content %}
+
+    <style>
+        ul {
+            list-style-type: square;
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            color: #333;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+
+
+        pre {
+            background-color: lightgray;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        p {
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .punto {
+            font-size: 20px;
+        }
+        
+    </style>
+
+    <div class="row">
+        
+            <h2>Información sobre este Documento</h2>
+            <p>En la documentación de swagger (situada en la url 127.0.0.1/8000/docs/) no pueden realizarse operaciones
+                POST. Si desea probar al completo la API, pongase en contacto con nosotros a través del correo que se muestra en la 
+                documentación comentada anteriormente (en la sección "Contact the developer") para recibir una invitación al workspace 
+                de Postman donde todas las peticiones pueden ser probadas. Para probar la peticion POST de este Documento en Postman,
+                deberá seleccionar la opción raw-JSON de Body.
+            </p>
+
+            <p>
+                Cuando en una URL se indica que debe especificar el nombre de una liga, tipo de gol o competición, y la que desea consultar 
+                tiene espacios, debe sustituir estos por "-". Un ejemplo: si desea buscar información sobre la competición 
+                "Premier League", en la URL deberá aparecer Premier-League.
+            </p>
+
+    </div>
+
+
+    <h2>Objeto JSON</h2>
+    <p>
+        Este es un ejemplo del JSON de un objeto del Documento Title. Todos los atributos son obligatorios. 
+        <br><span class="punto">•</span> Los siguientes conjuntos de atributos son únicos: (name, year), (name, team, year).
+        <br><span class="punto">•</span> Longitud máxima del campo "name": 25. 
+        <br><span class="punto">•</span> Rango de valores para "year": [1888, 2023] 
+        <br><span class="punto">•</span> El atributo "team" hace referencia a un objeto del Documento Team.
+        <br><span class="punto">•</span> El atributo "name" solo puede tomar estos valores: <br>
+        <ul>
+            <li>Champions League</li>
+            <li>Europa League</li>
+            <li>LaLiga</li>
+            <li>Copa del rey</li>
+            <li>Premier League</li>
+            <li>Community shield</li>
+            <li>Ligue 1</li>
+            <li>Coupe de la Ligue</li>
+            <li>Serie A</li>
+            <li>Coppa Italia</li>
+            <li>Bundesliga</li>
+            <li>DFB-Pokal</li>
+        </ul>
+    </p>
+
+    <pre>
+        {
+            "id": "644571d4321749cd4ba038d0",
+            "name": "LaLiga",
+            "year": 2022,
+            "team": "644571d4321749cd4ba038cf"
+        }
+    </pre>
+
+{% endblock %}

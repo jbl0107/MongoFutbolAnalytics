@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+
+    <style>
+        p {
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+    </style>
+
+    <div class="jumbotron">
+        <h1>MongoFutbolAnalytics API</h1>
+        <p>Esta API ha sido realizada por Jesús Ballestero López y Francisco de Paula Orozco Bernárdez-Zerpa.<br>
+            Cuenta con un total de 66 peticiones diferentes.<br>
+            Puede acceder a la documentación desde <a href="/docs/">aquí</a> para ver todas las posibles peticiones. <br>El valor devuelto de cada petición
+            se encuentra explicado en nuestra documentación externa en formato pdf (diferente a la comentada anteriormente).
+            En la barra de navegación, puede acceder a los diferentes apartados para obtener más información sobre los atributos
+            de los Documentos.
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>¿Qué puede encontrar aquí?</h2>
+            <p>En nuestra api podrá encontrar estadísticas detalladas sobre equipos, jugadores y partidos de fútbol. 
+                Utilizamos una base de datos MongoDB para almacenar y consultar los datos de manera eficiente.
+            </p>
+
+        </div>
+        <div class="col-sm-6">
+            <h2>¿Por qué MongoDB?</h2>
+            <p>Decidimos utilizar MongoDB para nuestro proyecto porque es una base de datos NoSQL flexible y escalable que nos permite almacenar y consultar grandes cantidades de datos de manera eficiente.</p>
+        </div>
+    </div>
+{% endblock %}
